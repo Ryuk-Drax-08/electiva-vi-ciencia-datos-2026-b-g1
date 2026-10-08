@@ -7,16 +7,16 @@
   <title>Produccion bajo control | Trabajo integrador</title>
   <style>
     :root {
-      --ink: #172b35;
-      --muted: #60727a;
-      --paper: #f5f1e8;
-      --white: #fffdf8;
-      --teal: #0e6b68;
-      --teal-dark: #084b4c;
-      --lime: #d8e46d;
-      --coral: #ee7253;
-      --line: #d6ddd4;
-      --shadow: 0 18px 50px rgba(24, 51, 54, .12);
+      --ink: #d9eee5;
+      --muted: #8ba99e;
+      --paper: #081414;
+      --white: #102321;
+      --teal: #43d6a0;
+      --teal-dark: #0d201e;
+      --lime: #c6f36a;
+      --coral: #ff8067;
+      --line: #20423a;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .3);
     }
 
     * { box-sizing: border-box; }
@@ -30,39 +30,33 @@
     }
     a { color: inherit; }
     .shell { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(245, 241, 232, .92);
-      border-bottom: 1px solid rgba(214, 221, 212, .9);
-      backdrop-filter: blur(12px);
-    }
+    .topbar { background: #06100f; border-bottom: 1px solid var(--line); }
     .topbar-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      min-height: 66px;
+      min-height: 58px;
       gap: 20px;
     }
     .brand {
-      color: var(--teal-dark);
+      color: var(--teal);
       font: 700 15px/1.1 "Trebuchet MS", sans-serif;
       letter-spacing: .05em;
       text-transform: uppercase;
     }
-    nav { display: flex; gap: 18px; font: 600 13px/1 "Trebuchet MS", sans-serif; }
-    nav a { text-decoration: none; color: var(--muted); }
-    nav a:hover { color: var(--coral); }
+    nav { color: var(--muted); font: 600 12px/1 "Trebuchet MS", sans-serif; }
+    .terminal-dots { display: inline-flex; gap: 6px; margin-right: 13px; vertical-align: middle; }
+    .terminal-dots i { width: 9px; height: 9px; display: block; border-radius: 50%; background: var(--coral); }
+    .terminal-dots i:nth-child(2) { background: #e4b45e; }
+    .terminal-dots i:nth-child(3) { background: var(--teal); }
 
     .hero {
       position: relative;
       overflow: hidden;
-      padding: 92px 0 82px;
-      background:
-        linear-gradient(118deg, rgba(8, 75, 76, .98), rgba(14, 107, 104, .9) 58%, rgba(32, 132, 124, .8)),
-        repeating-linear-gradient(90deg, transparent 0 59px, rgba(255,255,255,.06) 60px 61px);
-      color: var(--white);
+      padding: 68px 0 54px;
+      background: radial-gradient(circle at 78% 18%, rgba(67, 214, 160, .15), transparent 28%), #0d201e;
+      color: var(--ink);
+      border-bottom: 1px solid var(--line);
     }
     .hero::after {
       content: "";
@@ -71,68 +65,74 @@
       height: 420px;
       right: -130px;
       top: -160px;
-      border: 1px solid rgba(216, 228, 109, .55);
+      border: 1px solid rgba(198, 243, 106, .4);
       border-radius: 50%;
-      box-shadow: 0 0 0 38px rgba(216, 228, 109, .08), 0 0 0 78px rgba(216, 228, 109, .05);
+      box-shadow: 0 0 0 38px rgba(198, 243, 106, .06), 0 0 0 78px rgba(198, 243, 106, .03);
     }
     .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.3fr .7fr; gap: 70px; align-items: end; }
     .eyebrow { margin: 0 0 18px; color: var(--lime); font: 700 12px/1.2 "Trebuchet MS", sans-serif; letter-spacing: .16em; text-transform: uppercase; }
     h1 { max-width: 760px; margin: 0; font-size: clamp(42px, 7vw, 82px); line-height: .96; letter-spacing: -.035em; }
-    .hero-copy { max-width: 650px; margin: 26px 0 0; color: #e2f0dc; font-size: 19px; }
-    .hero-note { padding: 22px; border-left: 3px solid var(--lime); background: rgba(255,255,255,.09); font-size: 16px; }
+    .hero-copy { max-width: 650px; margin: 26px 0 0; color: var(--muted); font-size: 19px; }
+    .hero-note { padding: 22px; border: 1px solid var(--line); background: rgba(0,0,0,.18); font-size: 16px; }
     .hero-note strong { display: block; margin-bottom: 6px; color: var(--lime); font: 700 12px/1.2 "Trebuchet MS", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
 
-    main { padding: 74px 0; }
+    main { padding: 44px 0 70px; }
     section { scroll-margin-top: 90px; }
     .section-head { display: flex; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 28px; }
     .kicker { margin: 0 0 8px; color: var(--coral); font: 700 12px/1.2 "Trebuchet MS", sans-serif; letter-spacing: .13em; text-transform: uppercase; }
-    h2 { margin: 0; color: var(--teal-dark); font-size: clamp(30px, 4vw, 48px); line-height: 1.02; letter-spacing: -.025em; }
+    h2 { margin: 0; color: var(--teal); font-size: clamp(30px, 4vw, 48px); line-height: 1.02; letter-spacing: -.025em; }
     .section-lead { max-width: 420px; margin: 0; color: var(--muted); font-size: 16px; }
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 36px 0 74px; }
-    .stat { min-height: 150px; padding: 22px; background: var(--white); border-top: 4px solid var(--teal); box-shadow: var(--shadow); }
+    .stat { min-height: 150px; padding: 22px; background: var(--white); border: 1px solid var(--line); border-top: 4px solid var(--teal); box-shadow: var(--shadow); }
     .stat:nth-child(2) { border-color: var(--coral); }
     .stat:nth-child(3) { border-color: var(--lime); }
     .stat:nth-child(4) { border-color: #e4b45e; }
-    .stat b { display: block; color: var(--teal-dark); font-size: 44px; line-height: 1; }
+    .stat b { display: block; color: var(--lime); font-size: 44px; line-height: 1; }
     .stat span { display: block; margin-top: 10px; color: var(--muted); font: 600 12px/1.3 "Trebuchet MS", sans-serif; text-transform: uppercase; letter-spacing: .06em; }
 
     .split { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
     .panel { padding: 30px; background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow); }
-    .panel h3 { margin: 0 0 15px; color: var(--teal-dark); font: 700 20px/1.2 "Trebuchet MS", sans-serif; }
+    .panel h3 { margin: 0 0 15px; color: var(--teal); font: 700 20px/1.2 "Trebuchet MS", sans-serif; }
     .panel p { margin: 0; color: var(--muted); }
     .schema { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .entity { padding: 16px; background: #edf3e9; border-left: 3px solid var(--teal); }
-    .entity strong { display: block; margin-bottom: 7px; color: var(--teal-dark); font: 700 15px "Trebuchet MS", sans-serif; }
+    .entity { padding: 16px; background: #17322e; border-left: 3px solid var(--teal); }
+    .entity strong { display: block; margin-bottom: 7px; color: var(--lime); font: 700 15px "Trebuchet MS", sans-serif; }
     .entity small { color: var(--muted); }
 
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: step; }
-    .step { position: relative; min-height: 180px; padding: 25px 22px 20px; background: var(--teal-dark); color: var(--white); counter-increment: step; }
+    .step { position: relative; min-height: 180px; padding: 25px 22px 20px; background: var(--white); border: 1px solid var(--line); color: var(--ink); counter-increment: step; }
     .step::before { content: "0" counter(step); display: block; margin-bottom: 20px; color: var(--lime); font: 700 13px "Trebuchet MS", sans-serif; letter-spacing: .1em; }
     .step h3 { margin: 0 0 8px; font: 700 17px/1.2 "Trebuchet MS", sans-serif; }
-    .step p { margin: 0; color: #c9dfd6; font-size: 14px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
 
-    .results { margin-top: 74px; padding: 46px; background: var(--teal-dark); color: var(--white); }
-    .results h2 { color: var(--white); }
+    .results { margin-top: 74px; padding: 46px; background: #0d201e; border: 1px solid var(--line); color: var(--ink); }
+    .results h2 { color: var(--lime); }
     .results .kicker { color: var(--lime); }
     .results-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 42px; margin-top: 30px; align-items: center; }
     .bar-list { display: grid; gap: 17px; }
     .bar-row { display: grid; grid-template-columns: 52px 1fr 58px; gap: 12px; align-items: center; font: 700 14px "Trebuchet MS", sans-serif; }
-    .bar-track { height: 13px; background: rgba(255,255,255,.15); }
+    .bar-track { height: 13px; background: rgba(198,243,106,.12); }
     .bar-fill { height: 100%; background: var(--lime); }
     .bar-row:first-child .bar-fill { background: var(--coral); }
-    .finding { padding: 26px; border: 1px solid rgba(216, 228, 109, .5); }
+    .finding { padding: 26px; border: 1px solid rgba(198, 243, 106, .5); }
     .finding strong { display: block; margin-bottom: 10px; color: var(--lime); font: 700 12px "Trebuchet MS", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
     .finding p { margin: 0; font-size: 21px; line-height: 1.25; }
-    .finding em { display: block; margin-top: 15px; color: #c9dfd6; font-size: 14px; }
+    .finding em { display: block; margin-top: 15px; color: var(--muted); font-size: 14px; }
 
     .quality { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .quality div { padding: 20px; background: #edf3e9; }
+    .quality div { padding: 20px; background: #17322e; }
     .quality b { display: block; color: var(--teal); font-size: 30px; }
     .quality span { color: var(--muted); font: 600 12px "Trebuchet MS", sans-serif; text-transform: uppercase; }
-    .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
-    .button { display: inline-block; padding: 12px 17px; background: var(--teal); color: white; font: 700 13px "Trebuchet MS", sans-serif; text-decoration: none; }
-    .button:hover { background: var(--coral); }
-    .button.alt { background: transparent; color: var(--teal); border: 1px solid var(--teal); }
+    .file-list { margin-top: 24px; border-top: 1px solid var(--line); }
+    .file-row { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--line); font: 14px "Consolas", "Courier New", monospace; }
+    .file-row::before { content: "OK"; color: var(--teal); font-weight: 700; }
+    .file-row a { color: var(--lime); text-decoration: none; }
+    .file-row a:hover { color: var(--coral); text-decoration: underline; }
+    .file-row small { color: var(--muted); }
+    .terminal-line { margin-top: 30px; color: var(--muted); font: 14px "Consolas", "Courier New", monospace; }
+    .terminal-line strong { color: var(--teal); }
+    .cursor { display: inline-block; width: 8px; height: 16px; margin-left: 5px; vertical-align: -3px; background: var(--lime); animation: blink 1s steps(2, start) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
     footer { padding: 34px 0; border-top: 1px solid var(--line); color: var(--muted); font: 13px "Trebuchet MS", sans-serif; }
     footer strong { color: var(--teal-dark); }
 
@@ -150,7 +150,6 @@
     }
     @media print {
       .topbar { position: static; }
-      nav, .links { display: none; }
       .hero { color: #000; background: white; padding: 35px 0; }
       .hero-copy, .hero-note { color: #333; }
       main { padding: 25px 0; }
@@ -163,13 +162,8 @@
 <body>
   <header class="topbar">
     <div class="shell topbar-inner">
-      <a class="brand" href="#inicio">Trabajo integrador / Semana 9</a>
-      <nav aria-label="Navegacion principal">
-        <a href="#problema">Problema</a>
-        <a href="#metodo">Metodo</a>
-        <a href="#resultados">Resultados</a>
-        <a href="#entrega">Entrega</a>
-      </nav>
+      <div class="brand"><span class="terminal-dots"><i></i><i></i><i></i></span>entrega_semana_09.exe</div>
+      <nav>STATUS: READY / UTF-8 / 2026-B</nav>
     </div>
   </header>
 
@@ -182,7 +176,7 @@
           <p class="hero-copy">Diseño, limpieza y analisis de un registro industrial para convertir datos inconsistentes en evidencia util para la toma de decisiones.</p>
         </div>
         <aside class="hero-note">
-          <strong>Pregunta central</strong>
+          <strong>pregunta_central.txt</strong>
           ¿Que tan confiables son los registros de produccion y donde conviene concentrar la atencion operativa?
         </aside>
       </div>
@@ -262,14 +256,17 @@
           <p class="section-lead">Esta pagina puede abrirse directamente en el navegador, publicarse en GitHub o adjuntarse como archivo HTML.</p>
         </div>
         <div class="panel">
-          <h3>Archivos del trabajo</h3>
-          <p>La presentacion resume el proceso. El notebook contiene el codigo ejecutado y el CSV limpio contiene los 271 registros finales.</p>
-          <div class="links">
-            <a class="button" href="trabajo_integrador.ipynb">Abrir notebook</a>
-            <a class="button" href="registro_produccion_limpio.csv">Descargar CSV limpio</a>
-            <a class="button alt" href="README.md">Ver documentacion</a>
-            <a class="button alt" href="../README.md">Ver repositorio</a>
+          <h3>directorio_de_entrega/</h3>
+          <p>Todos los archivos verificables quedan en una sola vista. Selecciona el nombre del archivo para abrirlo o descargarlo.</p>
+          <div class="file-list">
+            <div class="file-row"><a href="presentacion.html" download>presentacion.html</a><small>vista principal / 1 archivo</small></div>
+            <div class="file-row"><a href="trabajo_integrador.ipynb" download>trabajo_integrador.ipynb</a><small>notebook ejecutado</small></div>
+            <div class="file-row"><a href="registro_produccion_limpio.csv" download>registro_produccion_limpio.csv</a><small>271 filas validas</small></div>
+            <div class="file-row"><a href="../registro_produccion.csv" download>registro_produccion.csv</a><small>dataset original</small></div>
+            <div class="file-row"><a href="README.md" download>09-week/README.md</a><small>documentacion y limpieza</small></div>
+            <div class="file-row"><a href="../README.md" download>README.md</a><small>contexto del repositorio</small></div>
           </div>
+          <div class="terminal-line"><strong>validator</strong>@corhuila:~$ paquete completo validado<span class="cursor"></span></div>
         </div>
       </section>
     </div>
