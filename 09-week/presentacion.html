@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Presentacion del trabajo integrador de Ciencia de Datos: limpieza y analisis de registros de produccion industrial.">
+  <title>Produccion bajo control | Trabajo integrador</title>
+  <style>
+    :root {
+      --ink: #172b35;
+      --muted: #60727a;
+      --paper: #f5f1e8;
+      --white: #fffdf8;
+      --teal: #0e6b68;
+      --teal-dark: #084b4c;
+      --lime: #d8e46d;
+      --coral: #ee7253;
+      --line: #d6ddd4;
+      --shadow: 0 18px 50px rgba(24, 51, 54, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .shell { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(245, 241, 232, .92);
+      border-bottom: 1px solid rgba(214, 221, 212, .9);
+      backdrop-filter: blur(12px);
+    }
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 66px;
+      gap: 20px;
+    }
+    .brand {
+      color: var(--teal-dark);
+      font: 700 15px/1.1 "Trebuchet MS", sans-serif;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    nav { display: flex; gap: 18px; font: 600 13px/1 "Trebuchet MS", sans-serif; }
+    nav a { text-decoration: none; color: var(--muted); }
+    nav a:hover { color: var(--coral); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 92px 0 82px;
+      background:
+        linear-gradient(118deg, rgba(8, 75, 76, .98), rgba(14, 107, 104, .9) 58%, rgba(32, 132, 124, .8)),
+        repeating-linear-gradient(90deg, transparent 0 59px, rgba(255,255,255,.06) 60px 61px);
+      color: var(--white);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      right: -130px;
+      top: -160px;
+      border: 1px solid rgba(216, 228, 109, .55);
+      border-radius: 50%;
+      box-shadow: 0 0 0 38px rgba(216, 228, 109, .08), 0 0 0 78px rgba(216, 228, 109, .05);
+    }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.3fr .7fr; gap: 70px; align-items: end; }
+    .eyebrow { margin: 0 0 18px; color: var(--lime); font: 700 12px/1.2 "Trebuchet MS", sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { max-width: 760px; margin: 0; font-size: clamp(42px, 7vw, 82px); line-height: .96; letter-spacing: -.035em; }
+    .hero-copy { max-width: 650px; margin: 26px 0 0; color: #e2f0dc; font-size: 19px; }
+    .hero-note { padding: 22px; border-left: 3px solid var(--lime); background: rgba(255,255,255,.09); font-size: 16px; }
+    .hero-note strong { display: block; margin-bottom: 6px; color: var(--lime); font: 700 12px/1.2 "Trebuchet MS", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+
+    main { padding: 74px 0; }
+    section { scroll-margin-top: 90px; }
+    .section-head { display: flex; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 28px; }
+    .kicker { margin: 0 0 8px; color: var(--coral); font: 700 12px/1.2 "Trebuchet MS", sans-serif; letter-spacing: .13em; text-transform: uppercase; }
+    h2 { margin: 0; color: var(--teal-dark); font-size: clamp(30px, 4vw, 48px); line-height: 1.02; letter-spacing: -.025em; }
+    .section-lead { max-width: 420px; margin: 0; color: var(--muted); font-size: 16px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 36px 0 74px; }
+    .stat { min-height: 150px; padding: 22px; background: var(--white); border-top: 4px solid var(--teal); box-shadow: var(--shadow); }
+    .stat:nth-child(2) { border-color: var(--coral); }
+    .stat:nth-child(3) { border-color: var(--lime); }
+    .stat:nth-child(4) { border-color: #e4b45e; }
+    .stat b { display: block; color: var(--teal-dark); font-size: 44px; line-height: 1; }
+    .stat span { display: block; margin-top: 10px; color: var(--muted); font: 600 12px/1.3 "Trebuchet MS", sans-serif; text-transform: uppercase; letter-spacing: .06em; }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .panel { padding: 30px; background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    .panel h3 { margin: 0 0 15px; color: var(--teal-dark); font: 700 20px/1.2 "Trebuchet MS", sans-serif; }
+    .panel p { margin: 0; color: var(--muted); }
+    .schema { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .entity { padding: 16px; background: #edf3e9; border-left: 3px solid var(--teal); }
+    .entity strong { display: block; margin-bottom: 7px; color: var(--teal-dark); font: 700 15px "Trebuchet MS", sans-serif; }
+    .entity small { color: var(--muted); }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: step; }
+    .step { position: relative; min-height: 180px; padding: 25px 22px 20px; background: var(--teal-dark); color: var(--white); counter-increment: step; }
+    .step::before { content: "0" counter(step); display: block; margin-bottom: 20px; color: var(--lime); font: 700 13px "Trebuchet MS", sans-serif; letter-spacing: .1em; }
+    .step h3 { margin: 0 0 8px; font: 700 17px/1.2 "Trebuchet MS", sans-serif; }
+    .step p { margin: 0; color: #c9dfd6; font-size: 14px; }
+
+    .results { margin-top: 74px; padding: 46px; background: var(--teal-dark); color: var(--white); }
+    .results h2 { color: var(--white); }
+    .results .kicker { color: var(--lime); }
+    .results-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 42px; margin-top: 30px; align-items: center; }
+    .bar-list { display: grid; gap: 17px; }
+    .bar-row { display: grid; grid-template-columns: 52px 1fr 58px; gap: 12px; align-items: center; font: 700 14px "Trebuchet MS", sans-serif; }
+    .bar-track { height: 13px; background: rgba(255,255,255,.15); }
+    .bar-fill { height: 100%; background: var(--lime); }
+    .bar-row:first-child .bar-fill { background: var(--coral); }
+    .finding { padding: 26px; border: 1px solid rgba(216, 228, 109, .5); }
+    .finding strong { display: block; margin-bottom: 10px; color: var(--lime); font: 700 12px "Trebuchet MS", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+    .finding p { margin: 0; font-size: 21px; line-height: 1.25; }
+    .finding em { display: block; margin-top: 15px; color: #c9dfd6; font-size: 14px; }
+
+    .quality { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .quality div { padding: 20px; background: #edf3e9; }
+    .quality b { display: block; color: var(--teal); font-size: 30px; }
+    .quality span { color: var(--muted); font: 600 12px "Trebuchet MS", sans-serif; text-transform: uppercase; }
+    .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .button { display: inline-block; padding: 12px 17px; background: var(--teal); color: white; font: 700 13px "Trebuchet MS", sans-serif; text-decoration: none; }
+    .button:hover { background: var(--coral); }
+    .button.alt { background: transparent; color: var(--teal); border: 1px solid var(--teal); }
+    footer { padding: 34px 0; border-top: 1px solid var(--line); color: var(--muted); font: 13px "Trebuchet MS", sans-serif; }
+    footer strong { color: var(--teal-dark); }
+
+    @media (max-width: 800px) {
+      .shell { width: min(100% - 28px, 620px); }
+      nav { display: none; }
+      .hero { padding: 68px 0 58px; }
+      .hero-grid, .split, .results-grid { grid-template-columns: 1fr; gap: 28px; }
+      .stats { grid-template-columns: repeat(2, 1fr); margin-bottom: 56px; }
+      .steps { grid-template-columns: 1fr; }
+      .schema, .quality { grid-template-columns: 1fr; }
+      .results { padding: 30px 22px; }
+      .section-head { display: block; }
+      .section-lead { margin-top: 15px; }
+    }
+    @media print {
+      .topbar { position: static; }
+      nav, .links { display: none; }
+      .hero { color: #000; background: white; padding: 35px 0; }
+      .hero-copy, .hero-note { color: #333; }
+      main { padding: 25px 0; }
+      .panel, .stat { box-shadow: none; }
+      .results { color: #000; background: white; border: 1px solid #aaa; }
+      .results h2 { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#inicio">Trabajo integrador / Semana 9</a>
+      <nav aria-label="Navegacion principal">
+        <a href="#problema">Problema</a>
+        <a href="#metodo">Metodo</a>
+        <a href="#resultados">Resultados</a>
+        <a href="#entrega">Entrega</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Ciencia de Datos / CORHUILA / 2026-B</p>
+          <h1>Produccion bajo control.</h1>
+          <p class="hero-copy">Diseño, limpieza y analisis de un registro industrial para convertir datos inconsistentes en evidencia util para la toma de decisiones.</p>
+        </div>
+        <aside class="hero-note">
+          <strong>Pregunta central</strong>
+          ¿Que tan confiables son los registros de produccion y donde conviene concentrar la atencion operativa?
+        </aside>
+      </div>
+    </section>
+
+    <div class="shell">
+      <section class="stats" aria-label="Resumen numerico">
+        <div class="stat"><b>297</b><span>Registros iniciales</span></div>
+        <div class="stat"><b>271</b><span>Registros validos</span></div>
+        <div class="stat"><b>0</b><span>Nulos al finalizar</span></div>
+        <div class="stat"><b>7.96%</b><span>Mayor tasa de defectos</span></div>
+      </section>
+
+      <section id="problema">
+        <div class="section-head">
+          <div><p class="kicker">01 / Contexto</p><h2>Del registro diario a una lectura confiable.</h2></div>
+          <p class="section-lead">La planta registra cuatro maquinas, tres turnos y cuatro semanas de operacion. El reto es asegurar que cada fila pueda compararse con las demas.</p>
+        </div>
+        <div class="split">
+          <article class="panel">
+            <h3>El problema de calidad</h3>
+            <p>El archivo original combinaba formatos de fecha, mayusculas y espacios inconsistentes, temperaturas en Celsius y Fahrenheit, valores faltantes, duplicados y registros que violaban las reglas del negocio.</p>
+            <div class="quality">
+              <div><b>11</b><span>Duplicados</span></div>
+              <div><b>10</b><span>Valores faltantes</span></div>
+              <div><b>5</b><span>Filas imposibles</span></div>
+            </div>
+          </article>
+          <article class="panel">
+            <h3>Modelo entidad-relacion</h3>
+            <p>El diseño separa las entidades de referencia y el registro transaccional para conservar trazabilidad y facilitar consultas agrupadas.</p>
+            <div class="schema">
+              <div class="entity"><strong>maquina</strong><small>Identidad, linea, modelo y capacidad.</small></div>
+              <div class="entity"><strong>turno</strong><small>Fecha y jornada de trabajo.</small></div>
+              <div class="entity"><strong>registro</strong><small>Produccion, defectos y temperatura.</small></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="metodo" style="margin-top: 74px;">
+        <div class="section-head">
+          <div><p class="kicker">02 / Metodo</p><h2>Seis pasos para limpiar sin perder contexto.</h2></div>
+          <p class="section-lead">Cada transformacion queda registrada en una bitacora dentro del notebook para que el resultado sea reproducible.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><h3>Deduplicar</h3><p>Se eliminan 11 filas repetidas y se conserva una copia de trabajo.</p></article>
+          <article class="step"><h3>Homologar</h3><p>Maquinas y turnos se llevan a nombres consistentes y comparables.</p></article>
+          <article class="step"><h3>Tipar</h3><p>Fechas mixtas y temperaturas textuales se convierten a tipos utiles.</p></article>
+          <article class="step"><h3>Convertir unidades</h3><p>32 temperaturas mayores a 60 se interpretan como Fahrenheit y se pasan a Celsius.</p></article>
+          <article class="step"><h3>Tratar faltantes</h3><p>Se eliminan filas sin defectos y se imputan temperaturas usando la mediana por maquina.</p></article>
+          <article class="step"><h3>Validar reglas</h3><p>Se excluyen producciones sobre 1800 o defectos mayores que la produccion.</p></article>
+        </div>
+      </section>
+
+      <section id="resultados" class="results">
+        <p class="kicker">03 / Resultados</p>
+        <h2>M-01 requiere la primera mirada.</h2>
+        <div class="results-grid">
+          <div class="bar-list" aria-label="Tasa de defectos por maquina">
+            <div class="bar-row"><span>M-01</span><div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div><span>7.96%</span></div>
+            <div class="bar-row"><span>M-03</span><div class="bar-track"><div class="bar-fill" style="width: 96.7%;"></div></div><span>7.70%</span></div>
+            <div class="bar-row"><span>M-02</span><div class="bar-track"><div class="bar-fill" style="width: 95.6%;"></div></div><span>7.61%</span></div>
+            <div class="bar-row"><span>M-04</span><div class="bar-track"><div class="bar-fill" style="width: 85.8%;"></div></div><span>6.83%</span></div>
+          </div>
+          <div class="finding">
+            <strong>Hallazgo operativo</strong>
+            <p>La tasa mas alta corresponde a M-01. Se recomienda priorizar su revision y mantenimiento.</p>
+            <em>La correlacion temperatura-defectos mas alta en valor absoluto fue debil: M-02, r = -0.124. Esto indica que conviene evaluar otros factores antes de atribuir el problema solo a la temperatura.</em>
+          </div>
+        </div>
+      </section>
+
+      <section id="entrega" style="margin-top: 74px;">
+        <div class="section-head">
+          <div><p class="kicker">04 / Entrega</p><h2>Todo queda listo para revisar.</h2></div>
+          <p class="section-lead">Esta pagina puede abrirse directamente en el navegador, publicarse en GitHub o adjuntarse como archivo HTML.</p>
+        </div>
+        <div class="panel">
+          <h3>Archivos del trabajo</h3>
+          <p>La presentacion resume el proceso. El notebook contiene el codigo ejecutado y el CSV limpio contiene los 271 registros finales.</p>
+          <div class="links">
+            <a class="button" href="trabajo_integrador.ipynb">Abrir notebook</a>
+            <a class="button" href="registro_produccion_limpio.csv">Descargar CSV limpio</a>
+            <a class="button alt" href="README.md">Ver documentacion</a>
+            <a class="button alt" href="../README.md">Ver repositorio</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="shell"><strong>Trabajo integrador / Semana 9</strong> · Diseñado para lectura en pantalla, impresion y entrega digital.</div>
+  </footer>
+</body>
+</html>
